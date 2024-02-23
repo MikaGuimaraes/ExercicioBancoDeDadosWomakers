@@ -1,0 +1,75 @@
+--1. Crie uma tabela chamada "alunos" com os seguintes campos: id
+--(inteiro), nome (texto), idade (inteiro) e curso (texto).
+
+CREATE TABLE alunos(id INT, nome VARCHAR(100), idade INT, curso VARCHAR(150));
+
+--2. Insira pelo menos 5 registros de alunos na tabela que você criou no
+--exercício anterior.
+
+INSERT INTO alunos(id, nome, idade, curso) VALUES (1, "Melissa", 19, "Engenharia");
+INSERT INTO alunos(id, nome, idade, curso) VALUES (2, "Rosana", 24, "Gestão da Qualidade");
+INSERT INTO alunos(id, nome, idade, curso) VALUES (3, "Helena", 31, "Engenharia");
+INSERT INTO alunos(id, nome, idade, curso) VALUES (4, "Alexandra", 21, "Administração");
+INSERT INTO alunos(id, nome, idade, curso) VALUES (5, "Aline", 22, "Publicidade e Marketing");
+
+--3. a) Selecionar todos os registros da tabela "alunos"
+SELECT * FROM alunos;
+
+--3. b) Selecionar o nome e a idade dos alunos com mais de 20 anos
+SELECT idade, nome FROM alunos WHERE idade >= 20;
+
+--3.c) Selecionar os alunos do curso de "Engenharia" em ordem
+--alfabética.
+SELECT * FROM alunos WHERE curso = "Engenharia" GROUP BY nome;
+
+--3.d) Contar o número total de alunos na tabela
+SELECT COUNT(id) FROM alunos;
+
+--4.a) Atualize a idade de um aluno específico na tabela.
+UPDATE alunos SET idade = 20 WHERE nome = "Melissa";
+
+--4.b) Remova um aluno pelo seu ID.
+DELETE FROM alunos WHERE id = 4;
+
+--5.Crie uma tabela chamada "clientes" com os campos: id (chave
+--primária), nome (texto), idade (inteiro) e saldo (float). Insira alguns
+--registros de clientes na tabela.
+CREATE TABLE clientes(id primary key INT, nome VARCHAR(100), idade INT, saldo FLOAT);
+INSERT INTO clientes(id, nome, idade, saldo) VALUES (11, "Liliane", 19, 1500.00);
+INSERT INTO clientes(id, nome, idade, saldo) VALUES (12, "Ana Clara", 26, 3700.00);
+INSERT INTO clientes(id, nome, idade, saldo) VALUES (13, "Flávia", 38, 4000.00);
+INSERT INTO clientes(id, nome, idade, saldo) VALUES (14, "Janaina", 31, 2900.00);
+INSERT INTO clientes(id, nome, idade, saldo) VALUES (15, "Miranda", 45, 7800.00);
+
+--6.a) Selecione o nome e a idade dos clientes com idade superior a
+--30 anos.
+SELECT nome, idade FROM clientes WHERE idade > 30;
+
+--6.b) Calcule o saldo médio dos clientes.
+SELECT AVG(saldo) FROM clientes;
+
+--6.c) Encontre o cliente com o saldo máximo.
+SELECT MAX(saldo) FROM clientes AS maior_saldo;
+SELECT nome FROM clientes WHERE saldo = 7800.00;
+
+--6.d) Conte quantos clientes têm saldo acima de 1000.
+SELECT COUNT.UNIQUE FROM clientes WHERE saldo > 1000.00;
+
+--7.a) Atualize o saldo de um cliente específico.
+UPDATE clientes SET saldo = 4000.00 WHERE nome = "Janaina";
+
+--7.b) Remova um cliente pelo seu ID.
+DELETE FROM clientes WHERE id = 1;
+
+--8. Crie uma segunda tabela chamada "compras" com os campos: id
+--(chave primária), cliente_id (chave estrangeira referenciando o id
+--da tabela "clientes"), produto (texto) e valor (real). Insira algumas
+--compras associadas a clientes existentes na tabela "clientes".
+--Escreva uma consulta para exibir o nome do cliente, o produto e o
+--valor de cada compra.
+SELECT COUNT(*) FROM clientes where saldo > 1000.00;
+CREATE TABLE compras(id_compra INT primary key,cliente_id INT, produto VARCHAR, valor INT, CONSTRAINT fk_comprascliente FOREIGN KEY (cliente_id) REFERENCES clientes(id));
+INSERT INTO compras(id, cliente_id, produto, valor) VALUES (1,11,"Bolsa", 100);
+INSERT INTO compras(id, cliente_id, produto, valor) VALUES (1,13,"Caderno", 30);
+INSERT INTO compras(id, cliente_id, produto, valor) VALUES (1,15,"Copo temático", 45);
+SELECT nome, produto,valor FROM clientes INNER JOIN compras ON id = cliente_id ;
